@@ -1,6 +1,6 @@
 # SVG to PDF Converter
 
-A Docker-based tool for converting SVG files to print-ready PDFs at 2004x2835 pixels (300 DPI).
+A Docker-based tool for converting SVG files to print-ready PDFs at 707mm x 1000mm (8350x11811 pixels @ 300 DPI).
 
 ## Overview
 
@@ -15,6 +15,7 @@ This tool processes SVG files and generates three PDF variants for each input fi
 - Docker-based (no local dependencies except Docker)
 - Automatic background color detection (white or black)
 - Print-ready output at 300 DPI
+- Grayscale output for printing
 - Processes all SVGs in batch
 - Handles filenames with spaces
 
@@ -35,11 +36,11 @@ This will:
 
 For each `example.svg` file, three PDFs are generated:
 
-- `example-centered.pdf` - SVG scaled to fit width (2004px), centered vertically with padding
-- `example-stretched.pdf` - SVG stretched to exactly 2004x2835 (aspect ratio ignored)
-- `example-cropped.pdf` - SVG scaled to fill height (2835px), cropped horizontally from center
+- `example-centered.pdf` - SVG scaled to fit width (8350px), centered vertically with padding
+- `example-stretched.pdf` - SVG stretched to exactly 8350x11811 (aspect ratio ignored)
+- `example-cropped.pdf` - SVG scaled to fill height (11811px), cropped horizontally from center
 
-All PDFs are exactly 2004x2835 pixels at 300 DPI.
+All PDFs are 707mm x 1000mm (8350x11811 pixels) at 300 DPI in grayscale.
 
 ## Requirements
 
@@ -48,24 +49,26 @@ All PDFs are exactly 2004x2835 pixels at 300 DPI.
 ## Technical Details
 
 ### Dimensions
-- Target: 2004 x 2835 pixels
+- Physical size: 707mm x 1000mm
+- Pixels: 8350 x 11811
 - Resolution: 300 DPI
+- Color mode: Grayscale
 - Input: Square aspect ratio SVGs
 
 ### Scaling Strategies
 
 **Centered Mode:**
-- Scales square SVG to 2004x2004 pixels
-- Centers vertically on 2835-tall canvas
+- Scales square SVG to 8350x8350 pixels
+- Centers vertically on 11811-tall canvas
 - Fills padding with detected background color (white or black)
 
 **Stretched Mode:**
-- Scales SVG to exactly 2004x2835 pixels
+- Scales SVG to exactly 8350x11811 pixels
 - Ignores aspect ratio (may distort)
 
 **Cropped Mode:**
-- Scales square SVG to 2835x2835 pixels (to fill height)
-- Crops 415.5 pixels from each side horizontally
+- Scales square SVG to 11811x11811 pixels (to fill height)
+- Crops horizontally from center to 8350px wide
 - Centers the crop
 
 ### Background Detection
