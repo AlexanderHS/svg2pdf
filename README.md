@@ -28,8 +28,6 @@ For each SVG, three PDF variants are generated so you can pick the best one:
 | **Stretched** | SVG stretched to fill (distorts) | Patterns that look good stretched |
 | **Cropped** | SVG scaled up, edges cropped | Art where the center is the focus |
 
-![Scaling modes diagram](https://via.placeholder.com/600x200?text=Centered+|+Stretched+|+Cropped)
-
 ## 🚀 Quick Start
 
 1. Drop your SVG files into `./svgs/`
