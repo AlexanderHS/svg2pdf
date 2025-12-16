@@ -1,87 +1,82 @@
-# SVG to PDF Converter
+# 🐢 SVG to PDF Converter
 
-A Docker-based tool for converting SVG files to print-ready PDFs at 707mm x 1000mm (8350x11811 pixels @ 300 DPI).
+Convert generative art SVGs to print-ready PDFs for large format printing!
 
-## Overview
+## 🎨 What's This For?
 
-This tool processes SVG files and generates three PDF variants for each input file, allowing you to choose the best scaling approach for printing:
+Love the algorithmic art on [Turtletoy](https://turtletoy.net/)? Want to print it big and hang it on your wall? This tool takes those square SVG exports and converts them to print-ready PDFs sized for large format poster printing.
 
-- **Centered** - SVG centered with padding (maintains aspect ratio)
-- **Stretched** - SVG stretched to fill page (may distort)
-- **Cropped** - SVG scaled up and cropped from center
+The output is optimized for services like [Officeworks poster printing](https://www.officeworks.com.au/) (Australia) or similar print shops that accept PDF uploads.
 
-## Features
+> **Note:** Turtletoy artwork is typically licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) - perfect for personal prints, just not for selling!
 
-- Docker-based (no local dependencies except Docker)
-- Automatic background color detection (white or black)
-- Print-ready output at 300 DPI
-- Grayscale output for printing
-- Processes all SVGs in batch
-- Handles filenames with spaces
+## ✨ Features
 
-## Usage
+- 🐳 **Docker-based** - No messy local dependencies
+- 🎯 **Three scaling modes** - Pick the best look for each artwork
+- 🔍 **Smart background detection** - Automatically detects white or black backgrounds
+- 🖨️ **Print-ready output** - 707mm × 1000mm @ 300 DPI, grayscale
+- 📦 **Batch processing** - Convert entire folders at once
 
-Simply run:
+## 🖼️ Output Modes
 
-```bash
-./run.sh
+For each SVG, three PDF variants are generated so you can pick the best one:
+
+| Mode | Description | Best For |
+|------|-------------|----------|
+| **Centered** | SVG centered with padding above/below | Art that needs breathing room |
+| **Stretched** | SVG stretched to fill (distorts) | Patterns that look good stretched |
+| **Cropped** | SVG scaled up, edges cropped | Art where the center is the focus |
+
+![Scaling modes diagram](https://via.placeholder.com/600x200?text=Centered+|+Stretched+|+Cropped)
+
+## 🚀 Quick Start
+
+1. Drop your SVG files into `./svgs/`
+2. Run the converter:
+   ```bash
+   ./run.sh
+   ```
+3. Find your PDFs in `./output/`
+4. Upload your favorite variant to your print shop!
+
+## 📐 Print Specifications
+
+| Property | Value |
+|----------|-------|
+| Physical size | 707mm × 1000mm |
+| Pixels | 8350 × 11811 |
+| Resolution | 300 DPI |
+| Color mode | Grayscale |
+| Input format | Square SVG |
+
+## 🛠️ Requirements
+
+- [Docker](https://www.docker.com/get-started)
+
+That's it! Everything else runs inside the container.
+
+## 📁 Project Structure
+
+```
+svg2pdf/
+├── svgs/           # 📥 Put your SVGs here
+├── output/         # 📤 PDFs appear here
+├── run.sh          # 🚀 Run this
+├── convert.py      # 🐍 Conversion logic
+└── Dockerfile      # 🐳 Container config
 ```
 
-This will:
-1. Build the Docker image (first time only)
-2. Process all SVG files in `./svgs/`
-3. Output PDFs to `./output/`
+## 🎯 Tips
 
-## Output
+- **Turtletoy export:** Use the SVG export button on any Turtletoy creation
+- **Choosing a mode:** Start with "centered" for most art, try "cropped" if the edges are less interesting
+- **Black backgrounds:** The tool auto-detects dark backgrounds and uses matching padding
 
-For each `example.svg` file, three PDFs are generated:
+## 📜 License
 
-- `example-centered.pdf` - SVG scaled to fit width (8350px), centered vertically with padding
-- `example-stretched.pdf` - SVG stretched to exactly 8350x11811 (aspect ratio ignored)
-- `example-cropped.pdf` - SVG scaled to fill height (11811px), cropped horizontally from center
+This tool is open source. Remember that the artwork you're converting may have its own license (Turtletoy uses CC BY-NC-SA 4.0 by default).
 
-All PDFs are 707mm x 1000mm (8350x11811 pixels) at 300 DPI in grayscale.
+---
 
-## Requirements
-
-- Docker
-
-## Technical Details
-
-### Dimensions
-- Physical size: 707mm x 1000mm
-- Pixels: 8350 x 11811
-- Resolution: 300 DPI
-- Color mode: Grayscale
-- Input: Square aspect ratio SVGs
-
-### Scaling Strategies
-
-**Centered Mode:**
-- Scales square SVG to 8350x8350 pixels
-- Centers vertically on 11811-tall canvas
-- Fills padding with detected background color (white or black)
-
-**Stretched Mode:**
-- Scales SVG to exactly 8350x11811 pixels
-- Ignores aspect ratio (may distort)
-
-**Cropped Mode:**
-- Scales square SVG to 11811x11811 pixels (to fill height)
-- Crops horizontally from center to 8350px wide
-- Centers the crop
-
-### Background Detection
-
-For centered mode, the tool automatically detects the SVG's background color:
-- Checks for background rectangles in the SVG
-- Samples corner pixels if needed
-- Defaults to white if detection is inconclusive
-
-## Files
-
-- `Dockerfile` - Container configuration with Inkscape and ImageMagick
-- `convert.py` - Python conversion script
-- `run.sh` - Wrapper script to build and run
-- `svgs/` - Input directory (add your SVG files here)
-- `output/` - Output directory (PDFs generated here)
+Made with 🤖 [Claude Code](https://claude.com/claude-code) for printing robot art on dead trees.
